@@ -77,8 +77,31 @@ const _clientEnv = {
   NODE_ENV,
   API_KEY: config.API_KEY,
 }
+// 定义构建工具常量的类型模式
+const buildSchema = z.object({
+  ANDROID_PACKAGE: z.string(),
+  APPLE_BUNDLE_ID: z.string(),
+  EAS_PROJECT_ID: z.string(),
+  EXPO_ACCOUNT_OWNER: z.string(),
+})
+/** @type {Record<keyof z.infer<typeof buildSchema>, string | undefined>} */
+const _buildEnv = {
+  ANDROID_PACKAGE: withEnvSuffix(config.ANDROID_PACKAGE),
+  APPLE_BUNDLE_ID: withEnvSuffix(config.APPLE_BUNDLE_ID),
+  EAS_PROJECT_ID: config.EAS_PROJECT_ID,
+  EXPO_ACCOUNT_OWNER: config.EXPO_ACCOUNT_OWNER,
+}
+// 合并环境变量
+const _env = { ..._clientEnv, ..._buildEnv }
+// 合并类型模式
+const mergeSchema = buildSchema.merge(clientSchema)
+const parsed = mergeSchema.safeParse(_env)
+if (parsed.success === false) {
+  throw new Error('无效的环境变量')
+}
 
 module.exports = {
   withEnvSuffix,
+  Env: parsed.data,
   ClientEnv: clientSchema.parse(_clientEnv),
 }

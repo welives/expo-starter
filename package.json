@@ -22,6 +22,7 @@
     "@types/react": "~18.2.14",
     "@typescript-eslint/eslint-plugin": "^6.9.0",
     "@typescript-eslint/parser": "^6.9.0",
+    "app-icon-badge": "^0.0.15",
     "cross-env": "^7.0.3",
     "dotenv": "^16.3.1",
     "eslint": "^8.52.0",

@@ -1,6 +1,6 @@
 import { ExpoConfig, ConfigContext } from 'expo/config'
 const { name, version } = require('./package.json')
-import { ClientEnv } from './env'
+import { Env, ClientEnv } from './env'
 export default ({ config }: ConfigContext): ExpoConfig => {
   return {
     ...config,
@@ -8,6 +8,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     slug: name,
     description: '一个简单的Expo基础项目模板',
     version,
+    owner: Env.EXPO_ACCOUNT_OWNER,
     orientation: 'portrait',
     userInterfaceStyle: 'automatic',
     scheme: `com.${name}.linking`,
@@ -21,16 +22,18 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       resizeMode: 'contain',
       backgroundColor: '#ffffff',
     },
-    runtimeVersion: {
-      policy: 'appVersion',
-    },
+    // runtimeVersion: {
+    //   policy: 'appVersion',
+    // },
     ios: {
       supportsTablet: true,
+      bundleIdentifier: Env.APPLE_BUNDLE_ID,
       entitlements: {
         'com.apple.developer.networking.wifi-info': true,
       },
     },
     android: {
+      package: Env.ANDROID_PACKAGE,
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',
         backgroundColor: '#ffffff',
@@ -39,8 +42,23 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     web: {
       favicon: './assets/favicon.png',
     },
+    plugins: [
+      [
+        'app-icon-badge',
+        {
+          enabled: Env.NODE_ENV !== 'production',
+          badges: [
+            { text: Env.NODE_ENV, type: 'banner', color: 'white' },
+            { text: version, type: 'ribbon', color: 'white' },
+          ],
+        },
+      ],
+    ],
     extra: {
       ...ClientEnv,
+      eas: {
+        ...(Env.EAS_PROJECT_ID && { projectId: Env.EAS_PROJECT_ID }),
+      },
     },
   }
 }
