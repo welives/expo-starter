@@ -1,6 +1,6 @@
 import { View, Button } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { tw } from '~/core/utils'
+import { tw } from '~/utils'
 import { AppStackScreenProps, AppStacks } from '~/routes/types'
 
 type Props = AppStackScreenProps<AppStacks>

@@ -5,7 +5,7 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["src/*"],
-      "@env": ["src/core/constants/env.ts"]
+      "@env": ["src/constants/env.ts"]
     },
     "typeRoots": ["node_modules/@types", "src/@types"]
   },
