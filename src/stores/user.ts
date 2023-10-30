@@ -1,6 +1,8 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
+import { createJSONStorage, persist, StateStorage } from 'zustand/middleware'
 import createSelectors from './selectors'
+import { storage, MMKVSceneKey } from '../utils'
 
 interface State {
   token: string
@@ -11,18 +13,41 @@ interface Action {
   removeToken: () => void
 }
 
+const userStorage: StateStorage = {
+  getItem: (key: string) => {
+    const value = storage.getString(key)
+    return value ?? null
+  },
+  setItem: (key: string, value) => {
+    storage.set(key, value)
+  },
+  removeItem: (key: string) => {
+    storage.delete(key)
+  },
+}
+
 const initialState: State = {
   token: '',
   isLogged: false,
 }
 const userStore = create<State & Action>()(
-  immer((set, get) => ({
-    token: '',
-    isLogged: false,
-    setToken: (token) => set({ token, isLogged: true }),
-    removeToken: () => set({ token: '', isLogged: false }),
-  }))
+  immer(
+    persist(
+      (set, get) => ({
+        token: '',
+        isLogged: false,
+        setToken: (token) => set({ token, isLogged: true }),
+        removeToken: () => set({ token: '', isLogged: false }),
+      }),
+      {
+        //! 注意这里的 name 并不是创建 mmkv 实例的 ID，而是 mmkv 持久化数据的唯一 key
+        name: MMKVSceneKey.USER,
+        storage: createJSONStorage(() => userStorage),
+      }
+    )
+  )
 )
+
 export const useUserStore = createSelectors(userStore)
 export function useUserReset() {
   userStore.setState(initialState)
