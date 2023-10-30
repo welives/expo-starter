@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Drawer } from 'react-native-drawer-layout'
 import React from 'react'
 import { tw } from '~/utils'
-import { useCounterStore } from '~/stores'
+import { useCounterStore } from '~/models'
 
 export default () => {
   const [open, setOpen] = React.useState(false)

@@ -2,7 +2,7 @@ import { View, Text, Button } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { tw } from '~/utils'
 import { TabsStackScreenProps, TabsStacks } from '~/routes/types'
-import { useCounterStore, useCounterReset } from '~/stores'
+import { useCounterStore, useCounterReset } from '~/models'
 
 type Props = TabsStackScreenProps<TabsStacks>
 export default ({ navigation }: Props) => {
