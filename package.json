@@ -1,6 +1,18 @@
 {
   "name": "expo-starter",
   "version": "1.0.0",
+  "description": "开箱即用的基于 Expo + Zustand + MMKV + TailwindCSS + TypeScript 的模板",
+  "keywords": [
+    "Expo",
+    "Zustand",
+    "MMKV",
+    "TailwindCSS",
+    "TypeScript",
+    "ESLint",
+    "Prettier"
+  ],
+  "license": "MIT",
+  "author": "welives",
   "main": "index.ts",
   "scripts": {
     "start": "expo start",

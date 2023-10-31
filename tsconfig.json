@@ -6,9 +6,8 @@
     "paths": {
       "~/*": ["src/*"],
       "@env": ["src/constants/env.ts"]
-    },
-    "typeRoots": ["node_modules/@types", "src/@types"]
+    }
   },
-  "include": ["src"],
+  "include": ["src", "types"],
   "exclude": ["node_modules", "android", "ios", "babel.config.js", "metro.config.js", ".eslintrc.js"]
 }
