@@ -22,9 +22,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       resizeMode: 'contain',
       backgroundColor: '#ffffff',
     },
-    // runtimeVersion: {
-    //   policy: 'appVersion',
-    // },
     ios: {
       supportsTablet: true,
       bundleIdentifier: Env.APPLE_BUNDLE_ID,
