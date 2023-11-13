@@ -1,9 +1,10 @@
 {
   "name": "expo-starter",
   "version": "1.0.0",
-  "description": "开箱即用的基于 Expo + Zustand + MMKV + TailwindCSS + TypeScript 的模板",
+  "description": "开箱即用的基于 Expo + ReactNavigation + Zustand + MMKV + TailwindCSS + TypeScript 的模板",
   "keywords": [
     "Expo",
+    "ReactNavigation",
     "Zustand",
     "MMKV",
     "TailwindCSS",
